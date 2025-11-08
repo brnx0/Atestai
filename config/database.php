@@ -112,6 +112,19 @@ return [
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
+        'connectionSig'=>[
+            'driver' => env('DB2_CONNECTION'),
+          //  'url' => env('DB_URL'),
+            'host' => env('DB2_HOST', 'localhost'),
+            'port' => env('DB2_PORT', '1433'),
+            'database' => env('DB2_DATABASE', 'laravel'),
+            'username' => env('DB2_USERNAME', 'root'),
+            'password' => env('DB2_PASSWORD', ''),
+            'charset' => env('DB2_CHARSET', 'utf8'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+
+        ]
 
     ],
 

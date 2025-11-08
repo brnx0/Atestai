@@ -1,8 +1,9 @@
 import { Head, Link } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-export default function Index({projects}){
+import Cards from './Cards';
 
+export default function Index({projects}){
     return (
         <>
             <AuthenticatedLayout
@@ -13,9 +14,17 @@ export default function Index({projects}){
                 }
             >
                 <Head title='Projetos'/>
-
+                <Cards projects={projects}></Cards>
+                
+              
+   
             </AuthenticatedLayout>
+                
+               
+
         </>
+      
+
     );
 
 }

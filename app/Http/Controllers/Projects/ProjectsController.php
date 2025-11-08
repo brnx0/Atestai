@@ -1,12 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\Projects;
+use App\Models\Projects\Project;
+
+
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProjectsController extends Controller
 {
@@ -14,7 +19,12 @@ class ProjectsController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        return Inertia::render('Projects/Index');
+    $projects = Project::select('*')->where('pes_cod_gerente',Auth::user()->pes_cod )->get();
+
+    // Retorna a view Inertia
+    return Inertia::render('Projects/Index', [
+        'projects' => $projects,
+    ]);
 
     }
 
