@@ -57,15 +57,15 @@ export default function Main({projects}){
                             <div className="space-y-3 text-sm text-gray-700 flex-grow">
                                 <div className="flex justify-between border-b border-gray-100 pb-2">
                                     <span className="font-medium text-gray-500">Início:</span>
-                                    <span>01/01/2026</span>
+                                    <span>{project.PRO_DATA}</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-100 pb-2">
                                     <span className="font-medium text-gray-500">Prazo:</span>
-                                    <span>30/06/2026</span>
+                                    <span>{project.PRO_DATA_CONCLUSAO}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="font-medium text-gray-500">Tarefas Concluídas:</span>
-                                    <span className="font-bold text-green-600">85%</span>
+                                    <span className="font-bold text-green-600"></span>
                                 </div>
                             </div>
                             

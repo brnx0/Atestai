@@ -117,18 +117,18 @@ export default function Sprints ({ show, onClose, children,projectCod }) {
                                     <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-sm text-gray-600 border-t pt-4">
                                         <div>
                                             <span class="font-medium text-gray-800">Liberada </span>
-                                            <span class="block px-2 py-1 mt-1 bg-red-100 text-red-800 font-semibold rounded-lg text-center">{sprint.VER_LIBERA=='S'?'Sim':'Não'}</span>
+                                            <span className={`block px-2 py-1 mt-1 bg-${sprint.VER_LIBERA=='S'?'green':'red'}-100 text-black-800 font-semibold rounded-lg text-center`} >{sprint.VER_LIBERA=='S'?'Sim':'Não'}</span>
                                         </div>
                                         
                                         <div>
-                                            <span class="font-medium text-gray-800">Data de Liberação </span>
-                                            <span class="block mt-1 text-gray-500 italic">NULO</span>
+                                            <span class="font-medium text-gray-800">Data de Início </span>
+                                            <span class="block mt-1 text-gray-500 italic">{ new Date(sprint.VER_DATA).toLocaleDateString()}</span>
                                         </div>
 
 
                                         <div>
                                             <span class="font-medium text-gray-800">Previsão de Data  </span>
-                                            <span class="block mt-1 text-gray-700">07/01/2010</span>
+                                            <span class="block mt-1 text-gray-700">{new Date(sprint.VER_PREV_DATA).toLocaleDateString()}</span>
                                         </div>
                                         <div>
                                             <span class="font-medium text-gray-800">Ação</span>
