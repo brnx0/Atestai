@@ -79,7 +79,7 @@ export default function Sprints ({ show, onClose, children,projectCod }) {
         <Portal> 
     
             <div 
-                className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 transition-opacity duration-300"
+                className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 transition-opacity duration-300 overflow-y-auto"
                 onClick={onClose} // Fecha ao clicar no overlay
             >
                 

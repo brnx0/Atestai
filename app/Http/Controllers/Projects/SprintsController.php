@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Projects;
 use App\Services\ProjectService;
 use Illuminate\Support\Facades\Response;
@@ -8,17 +7,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Projects\Sprint;
 
+class SprintsController extends Controller{
 
-
-class SprintsController extends Controller
-{
     /**
      * Display a listing of the resource.
      */
+
     public function index($sprintCod){ 
         
        
-        return Sprint::select('*')->where('VER_COD_PROJETO', $sprintCod)->orderBy('VER_VERSAO_SEQ', 'DESC')->get();
+        return Sprint::select('*')->where('COD_PROJETO', $sprintCod)->orderBy('COD_VERSAO', 'DESC')->get();
     }
     /**
      * Show the form for creating a new resource.
@@ -41,13 +39,10 @@ class SprintsController extends Controller
                 return response('Arquivo não encontrado no servidor.', 404);
             }
             return Response::download($caminhoCompletoArquivo,'Nome_Download_Desejado.docx');
-
-   
         //  return ProjectService::docJuntarAnexo($dados)  ;
         } catch (\Throwable $th) {
             return $th;
         }
-        
     }
 
     /**
