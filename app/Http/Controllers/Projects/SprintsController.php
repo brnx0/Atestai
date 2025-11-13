@@ -38,7 +38,7 @@ class SprintsController extends Controller{
             if (!file_exists($caminhoCompletoArquivo)) {
                 return response('Arquivo não encontrado no servidor.', 404);
             }
-            return Response::download($caminhoCompletoArquivo,'Nome_Download_Desejado.docx');
+            return Response::download($caminhoCompletoArquivo,'Arquivo.docx');
         //  return ProjectService::docJuntarAnexo($dados)  ;
         } catch (\Throwable $th) {
             return $th;
@@ -50,12 +50,12 @@ class SprintsController extends Controller{
      */
     public function store(Request $request) {
         $return = [ [
-              "id"=> 1,
+            "id"=> 1,
             "nome"=>'Joel'
 
         ],
         [
-              "id"=> 1,
+            "id"=> 1,
             "nome"=>'Joel'
 
         ]

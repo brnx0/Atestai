@@ -27,8 +27,7 @@ class ProjectsController extends Controller{
      */
     public function index(){
     $projects = Project::select('*')->where('pes_cod_gerente',Auth::user()->pes_cod )->get();
-    $dadosTratados = $this->sanitizeUtf8($projects);
-
+    $dadosTratados = $this->sanitizeUtf8($projects->toArray());
     // Retorna a view Inertia
     return Inertia::render('Projects/Index', [
         'projects' => $dadosTratados

@@ -38,7 +38,7 @@ export default function Main({projects}){
                             </div>
 
                             {/* NOME DO PROJETO (Dinâmico) */}
-                            <h3 className="mt-4 text-2xl font-extrabold truncate">
+                            <h3 className="mt-1 text-2xl font-bold">
                                 {project.PRO_NOME}
                             </h3>
                         </div>
@@ -57,11 +57,11 @@ export default function Main({projects}){
                             <div className="space-y-3 text-sm text-gray-700 flex-grow">
                                 <div className="flex justify-between border-b border-gray-100 pb-2">
                                     <span className="font-medium text-gray-500">Início:</span>
-                                    <span>{project.PRO_DATA}</span>
+                                    <span>{new Date(project.PRO_DATA).toLocaleDateString()}</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-100 pb-2">
                                     <span className="font-medium text-gray-500">Prazo:</span>
-                                    <span>{project.PRO_DATA_CONCLUSAO}</span>
+                                    <span>{ new Date(project.PRO_DATA_CONCLUSAO).toLocaleDateString()}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="font-medium text-gray-500">Tarefas Concluídas:</span>

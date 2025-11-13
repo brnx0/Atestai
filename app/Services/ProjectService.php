@@ -78,10 +78,14 @@ class  ProjectService {
             mkdir($tmpDirectory,0755, true);
         }
         $imagick = new \Imagick();
+
         $nomeBase = $anexos->COD_CASO;
         try {
             // 2. Lê o Conteúdo Binário do PDF (do registro atual)
             $imagick->readImageBlob($anexos->UPR_ARQUIVO);
+            $imagick->setImageFormat('png');              // Define o formato
+            $imagick->setResolution(600,600);
+     
             
         } catch (\ImagickException $e) {
             // Logar e pular para o próximo registro se este PDF falhar
@@ -92,10 +96,9 @@ class  ProjectService {
         }
         foreach ($imagick as $i => $imagemPag) {
             $indicePagina = $i + 1; // Para ter a contagem em 1
-            $outputFileName = $nomeBase . '_pag_' . $indicePagina . '.jpeg';
+            $outputFileName = $nomeBase . '_pag_' . $indicePagina . '.png';
             $outputPath = $tmpDirectory.$outputFileName;
-            $imagemPag->setImageFormat('jpeg');              // Define o formato
-            $imagemPag->setResolution(300,300);
+
             $imagemPag->setImageCompressionQuality(100);      // Define a qualidade
             $imagemPag->writeImage($outputPath); 
             // 4. Armazena o caminho
