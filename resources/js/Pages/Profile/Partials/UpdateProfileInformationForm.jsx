@@ -4,6 +4,8 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Transition } from '@headlessui/react';
 import { Link, useForm, usePage } from '@inertiajs/react';
+import Lookup from '@/Components/Lookup'
+
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
@@ -11,6 +13,7 @@ export default function UpdateProfileInformation({
     className = '',
 }) {
     const user = usePage().props.auth.user;
+    console
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
@@ -28,17 +31,17 @@ export default function UpdateProfileInformation({
         <section className={className}>
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
-                    Profile Information
+                    Informações do Perfil
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Update your account's profile information and email address.
+                    Atualize as informações do seu perfil.
                 </p>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="name" value="Nome" />
 
                     <TextInput
                         id="name"
@@ -67,6 +70,10 @@ export default function UpdateProfileInformation({
                     />
 
                     <InputError className="mt-2" message={errors.email} />
+                </div>
+                <div>
+                    <InputLabel htmlFor="usrSig" value="Usuario Sig" />
+                    <Lookup id="usrSig" placeholder="Escolha um Perfil do Sig" apiUrl={'getUsuarios'}/>
                 </div>
 
                 {mustVerifyEmail && user.email_verified_at === null && (

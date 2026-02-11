@@ -23,5 +23,5 @@ Route::middleware('auth')->group(function (){
     Route::get('/projetos', [ProjectsController::class, 'index'])->name('projects.index');
 });
 
-// Route::get('/sprint/{sprintCod}', [SprintsController::class, 'createArquivo'])->name('sprint.make');
+ Route::get('/sprint/{sprintCod}', [SprintsController::class, 'createArquivo'])->name('sprint.make');
 require __DIR__.'/auth.php';

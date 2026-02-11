@@ -26,9 +26,7 @@ export default function Edit({ mustVerifyEmail, status }) {
                         />
                     </div>
                     <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
-                        <UserLookup>
 
-                        </UserLookup>
                     </div>
 
                     <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">

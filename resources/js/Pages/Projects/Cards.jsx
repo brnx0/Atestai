@@ -57,11 +57,11 @@ export default function Main({projects}){
                             <div className="space-y-3 text-sm text-gray-700 flex-grow">
                                 <div className="flex justify-between border-b border-gray-100 pb-2">
                                     <span className="font-medium text-gray-500">Início:</span>
-                                    <span>{new Date(project.PRO_DATA).toLocaleDateString()}</span>
+                                    <span>{new Date(project.PRO_DATA).toLocaleDateString('pt-BR')}</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-100 pb-2">
                                     <span className="font-medium text-gray-500">Prazo:</span>
-                                    <span>{ new Date(project.PRO_DATA_CONCLUSAO).toLocaleDateString()}</span>
+                                    <span>{ new Date(project.PRO_DATA_CONCLUSAO).toLocaleDateString('pt-BR')}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="font-medium text-gray-500">Tarefas Concluídas:</span>

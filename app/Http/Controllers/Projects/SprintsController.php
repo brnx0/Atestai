@@ -14,8 +14,6 @@ class SprintsController extends Controller{
      */
 
     public function index($sprintCod){ 
-        
-       
         return Sprint::select('*')->where('COD_PROJETO', $sprintCod)->orderBy('COD_VERSAO', 'DESC')->get();
     }
     /**
@@ -25,21 +23,21 @@ class SprintsController extends Controller{
         try {
         $dados = DB::connection('connectionSig')->select("
             SELECT 
-            C.COD_CASO, 
-            C.CAS_RESUMO, 
-            replace(V.VER_NOME,'Sprint','') as Sprint,  
-            A.UPR_ARQUIVO
+                C.COD_CASO, 
+                C.CAS_RESUMO, 
+                replace(V.VER_NOME,'Sprint','') as Sprint,
+                C.CAS_DESCRICAO
             FROM SUP_VERSAO V
-            INNER JOIN SUP_CASO C ON C.CAS_COD_VERSAO = V.COD_VERSAO
-            LEFT JOIN SUP_UPLOAD_REQUISITO  A ON C.COD_CASO = A.COD_CASO
-            WHERE C.CAS_CAT = 2 AND V.COD_VERSAO =".$sprintCod);
+            INNER JOIN 
+                SUP_CASO C ON C.CAS_COD_VERSAO = V.COD_VERSAO
+            WHERE 
+                C.CAS_CAT = 2 AND V.COD_VERSAO =".$sprintCod);
             $arquivo = new ProjectService();
-            $caminhoCompletoArquivo = $arquivo->createDocument($dados);
+            $caminhoCompletoArquivo = $arquivo->createDocument($dados, $sprintCod);
             if (!file_exists($caminhoCompletoArquivo)) {
                 return response('Arquivo não encontrado no servidor.', 404);
             }
-            return Response::download($caminhoCompletoArquivo,'Arquivo.docx');
-        //  return ProjectService::docJuntarAnexo($dados)  ;
+            return Response::download($caminhoCompletoArquivo,'Nome_Download_Desejado.docx');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -49,51 +47,16 @@ class SprintsController extends Controller{
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
-        $return = [ [
-            "id"=> 1,
-            "nome"=>'Joel'
-
-        ],
-        [
-            "id"=> 1,
-            "nome"=>'Joel'
-
-        ]
-          
+        $return = [ 
+            [
+                "id"=> 1,
+                "nome"=>'Joel'
+            ],
+            [
+                "id"=> 1,
+                "nome"=>'Joel'
+            ] 
         ];
         return $return;
- 
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

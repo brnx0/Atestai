@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export default function UserLookup() {
     return(
-            <Lookup placeholder="Escolha um Usuário"/>
+            <Lookup id="" placeholder="Escolha um Usuário"/>
     )
 }
 

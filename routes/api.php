@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Projects\SprintsController;
 
 Route::get('/sprints/{sprintCod}', [SprintsController::class, 'index'])->name('sprint.index');
-Route::get('/sprint/{sprintCod}', [SprintsController::class, 'createArquivo'])->name('sprint.make');
 Route::get('/user', [SprintsController::class, 'store'])->name('getUsuarios');
 
 
