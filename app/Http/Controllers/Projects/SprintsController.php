@@ -1,62 +1,68 @@
 <?php
 namespace App\Http\Controllers\Projects;
-use App\Services\ProjectService;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Projects\Sprint;
 
-class SprintsController extends Controller{
+use App\Http\Controllers\Controller;
+use App\Services\SprintService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Log;
+
+class SprintsController extends Controller
+{
+    protected $sprintService;
+
+    public function __construct(SprintService $sprintService)
+    {
+        $this->sprintService = $sprintService;
+    }
 
     /**
      * Display a listing of the resource.
      */
-
-    public function index($sprintCod){ 
-        return Sprint::select('*')->where('COD_PROJETO', $sprintCod)->orderBy('COD_VERSAO', 'DESC')->get();
+    public function index($sprintCod)
+    { 
+        return response()->json($this->sprintService->getSprints($sprintCod));
     }
+
     /**
      * Show the form for creating a new resource.
      */
-    public function createArquivo($sprintCod){
+    public function createArquivo($sprintCod)
+    {
         try {
-        $dados = DB::connection('connectionSig')->select("
-            SELECT 
-                C.COD_CASO, 
-                C.CAS_RESUMO, 
-                replace(V.VER_NOME,'Sprint','') as Sprint,
-                C.CAS_DESCRICAO
-            FROM SUP_VERSAO V
-            INNER JOIN 
-                SUP_CASO C ON C.CAS_COD_VERSAO = V.COD_VERSAO
-            WHERE 
-                C.CAS_CAT = 2 AND V.COD_VERSAO =".$sprintCod);
-            $arquivo = new ProjectService();
-            $caminhoCompletoArquivo = $arquivo->createDocument($dados, $sprintCod);
-            if (!file_exists($caminhoCompletoArquivo)) {
+            $caminhoCompletoArquivo = $this->sprintService->createSprintDocument($sprintCod);
+
+            if (!$caminhoCompletoArquivo || !file_exists($caminhoCompletoArquivo)) {
                 return response('Arquivo não encontrado no servidor.', 404);
             }
-            return Response::download($caminhoCompletoArquivo,'Nome_Download_Desejado.docx');
+
+            return Response::download($caminhoCompletoArquivo, 'Nome_Download_Desejado.docx');
+            
         } catch (\Throwable $th) {
-            return $th;
+            Log::error('Erro ao criar arquivo da sprint.', [
+                'sprintCod' => $sprintCod,
+                'error' => $th->getMessage()
+            ]);
+            
+            return response()->json(['message' => 'Ocorreu um erro ao processar o arquivo.', 'details' => $th->getMessage()], 500);
         }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $return = [ 
             [
-                "id"=> 1,
-                "nome"=>'Joel'
+                "id" => 1,
+                "nome" => 'Joel'
             ],
             [
-                "id"=> 1,
-                "nome"=>'Joel'
+                "id" => 1,
+                "nome" => 'Joel'
             ] 
         ];
-        return $return;
+        return response()->json($return);
     }
 }

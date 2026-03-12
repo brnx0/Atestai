@@ -1,36 +1,33 @@
 <?php
 namespace App\Http\Controllers\Projects;
-use App\Models\Projects\Project;
+
 use App\Http\Controllers\Controller;
+use App\Services\ProjectService;
+use App\Traits\SanitizesUtf8;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Support\Facades\Auth;
 
-class ProjectsController extends Controller{
-    public function sanitizeUtf8($data){
-        if (is_array($data) || $data instanceof \Illuminate\Support\Collection) {
-            $cleaned_data = [];
-            foreach ($data as $key => $value) {
-                $cleaned_data[$key] = $this->sanitizeUtf8($value);
-            }
-            return $cleaned_data;
-        }
-        if (is_string($data)) {
-            return mb_convert_encoding($data, 'UTF-8', 'auto');
-        }
-        return $data;
+class ProjectsController extends Controller
+{
+    use SanitizesUtf8;
+
+    protected $projectService;
+
+    public function __construct(ProjectService $projectService)
+    {
+        $this->projectService = $projectService;
     }
 
-    public function index(){
-        $projects = Project::select('COD_PROJETO','PRO_NOME','PRO_DATA','PRO_DATA_CONCLUSAO')
-            ->where('pes_cod_gerente',Auth::user()->pes_cod )
-            ->get();
+    public function index()
+    {
+        $projects = $this->projectService->getProjectsForUser(Auth::user()->pes_cod);
+        
         $dadosTratados = $this->sanitizeUtf8($projects->toArray());
+        
         return Inertia::render('Projects/Index', [
             'projects' => $dadosTratados
         ]);
     }
-
 }

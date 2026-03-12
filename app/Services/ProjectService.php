@@ -5,12 +5,27 @@ use Imagick;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 use App\Models\Projects\Sprint;
+use App\Models\Projects\Project;
 use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Illuminate\Support\Facades\Storage;     
 use App\Services\AgenteIA;
 
-class  ProjectService {
+class ProjectService {
+    
+    /**
+     * Get all projects managed by a specific user.
+     * 
+     * @param int $userId
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getProjectsForUser($userId)
+    {
+        return Project::select('COD_PROJETO', 'PRO_NOME', 'PRO_DATA', 'PRO_DATA_CONCLUSAO')
+            ->where('pes_cod_gerente', $userId)
+            ->get();
+    }
+
     public function createDocument($dados, $codSprint){
 		ini_set('max_execution_time', 600);
 		set_time_limit(600); 
